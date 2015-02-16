@@ -1,0 +1,327 @@
+/**
+*
+*/
+import java.util.Scanner;
+import java.util.Properties;
+import model.BookCollection;
+import model.Book;
+//import model.PatronCollection;
+//import model.Patron;
+//import model.TransactionCollection;
+import model.Transaction;
+
+public class BookStore{
+	
+	private Scanner scan = new Scanner(System.in);
+	
+	public BookStore(){
+		initialPrompt();
+		while(true){
+			runTime();
+		}
+	}
+	
+	public static void main(String args[]){
+		//System.out.println("type and press enter");
+		//String in = System.in;
+		//System.out.println(in);
+		
+		BookStore myBS = new BookStore();
+		
+		
+	}
+	
+	private void initialPrompt(){
+		System.out.println("Welcome to the Book Store application.");
+		System.out.println("Authors: Max Waldt & Luke Minardo");
+		System.out.println("Framework by Sandeep Mitra & Michael Steves");
+		System.out.println("\n");
+	}
+
+	
+	public void runTime(){
+		mainMenuPrompt();		
+	}
+	
+	private void mainMenuPrompt(){
+		System.out.println("Type the number of the option and press enter to select it");
+		System.out.println("1. Create a new entry");
+		System.out.println("2. Pull up an existing entry");
+		System.out.println("5. Run Test Script");
+		System.out.println("0. Exit Program");
+		System.out.println("\n");
+		mainMenuReader();
+	}
+	
+	private void mainMenuReader(){
+		int i = scan.nextInt();
+		switch(i){
+			case 1:
+				createMenuPrompt();
+				break;
+			case 2:
+				findMenuPrompt();
+				break;
+			case 5:
+				runTestScript();
+				break;
+			case 0:
+				System.exit(0);
+		}
+	}
+	
+	private void createMenuPrompt(){
+		System.out.println("Type the number of the option and press enter to select it");
+		System.out.println("1. Create a new Book");
+		System.out.println("2. Create a new Patron");
+		System.out.println("3. Create a new Transaction");
+		System.out.println("5. Go Back a step");
+		System.out.println("\n");
+		createMenuReader();
+	}
+	
+	private void createMenuReader(){
+		int i = scan.nextInt();
+		switch(i){
+			case 1:
+				createBookPrompt();
+				break;
+			case 2:
+				createPatronPrompt();
+				break;
+			case 3:
+				createTransactionPrompt();
+				break;
+			case 5:
+				mainMenuPrompt();
+				break;
+		}
+	}
+   
+   private void createBookPrompt(){
+      String s = "";
+      Properties p = new Properties();
+      System.out.println("Name of book: ");
+      s = scan.next();
+      p.setProperty("title", s);
+      System.out.println("Author of Book: ");
+      s = scan.next();
+      p.setProperty("Author", s);
+      System.out.println("Year of publication(yyyy-mm-dd): ");
+      s = scan.next();
+      p.setProperty("pubYear", s);
+      System.out.println("Status(g for good, u for used, d for damaged): ");
+      s = scan.next();
+      p.setProperty("status", s);
+      Book b = new Book(p);
+      b.update();
+   }
+   
+   private void createPatronPrompt(){  /*
+      String s = "";
+      Properties p = new Properties();
+      System.out.println("Name of Patron: ");
+      s = scan.next();
+      p.setProperty("name", s);
+      System.out.println("Address: ");
+      s = scan.next();
+      p.setProperty("address", s);
+      System.out.println("City: ");
+      s = scan.next();
+      p.setProperty("city", s);
+      System.out.println("State code: ");
+      s = scan.next();
+      p.setProperty("stateCode", s);
+      System.out.println("Zip code: ");
+      s = scan.next();
+      p.setProperty("zip", s);
+      System.out.println("Email Address: ");
+      s = scan.next();
+      p.setProperty("email", s);
+      System.out.println("Date of Birth(yyyy-mm-dd): ");
+      s = scan.next();
+      p.setProperty("dateOfBirth", s);
+      Patron pat = new Patron(p);
+      pat.update();       */
+   }
+   
+   private void createTransactionPrompt(){
+      String s = "";
+      Properties p = new Properties();
+      System.out.println("Book ID: ");
+      s = scan.next();
+      p.setProperty("bookId", s);
+      System.out.println("Patron ID: ");
+      s = scan.next();
+      p.setProperty("patronID", s);
+      System.out.println("Transaction type(Sale, Rent, Return): ");
+      s = scan.next();
+      p.setProperty("transType", s);
+      System.out.println("Date of Transaction(yyyy-mm-dd): ");
+      s = scan.next();
+      p.setProperty("dateOfTrans", s);
+      Transaction t = new Transaction(p);
+      t.update();   }
+	
+	private void findMenuPrompt(){
+		System.out.println("Type the number of the option and press enter to select it");
+		System.out.println("1. Find a Book");
+		System.out.println("2. Find a Patron");
+		System.out.println("3. Find a Transaction");
+		System.out.println("5. Go back a step");
+		System.out.println("\n");
+		findMenuReader();
+	}
+	
+	private void findMenuReader(){
+		int i = scan.nextInt();
+		switch(i){
+			case 1:
+				findBookPrompt();
+				break;
+			case 2:
+				findPatronPrompt();
+				break;
+			case 3:
+				findTransactionPrompt();
+				break;
+			case 5:
+				mainMenuPrompt();
+				break;
+		}
+	}
+	
+	private void findBookPrompt(){
+		System.out.println("Type the number of the option and press enter to select it");
+		System.out.println("1. Find all Books older than a date");
+		System.out.println("2. Find all Books newer than a date");
+		System.out.println("3. Find all Books with a title like");
+		System.out.println("4. Find all Books with a author like");
+		System.out.println("5. Go back a step");
+		System.out.println("\n");
+		findBookReader();
+	}
+
+	private void findBookReader(){
+		int i = scan.nextInt();
+		switch(i){
+			case 1:
+				findBookOlderThan();
+				break;
+			case 2:
+				findBookNewerThan();
+				break;
+			case 3:
+				findBookTitleLike();
+				break;
+			case 4:
+				findBookAuthorLike();
+				break;
+			case 5:
+				findMenuReader();
+				break;
+		}
+	}
+	
+	private void findBookOlderThan(){
+		System.out.println("Date to search before: ");
+		
+	}
+	private void findBookNewerThan(){
+		System.out.println("Date to search after: ");
+		
+	}
+	private void findBookTitleLike(){
+		System.out.println("Book Title: ");
+	
+	}
+	private void findBookAuthorLike(){
+		System.out.println("Author's Name: ");
+	
+	}
+	
+	private void findPatronPrompt(){
+		System.out.println("Type the number of the option and press enter to select it");
+		System.out.println("1. Find all Patrons older than a date");
+		System.out.println("2. Find all Patrons younger than a date");
+		System.out.println("3. Find all Patrons in a ZIP Code");
+		System.out.println("4. Find all Patrons with names like");
+      System.out.println("5. Go back a step");
+		System.out.println("\n");
+	}
+
+	private void findPatronReader(){
+		int i = scan.nextInt();
+		switch(i){
+			case 1:
+				findPatronOlderThan();
+				break;
+			case 2:
+				findPatronNewerThan();
+				break;
+			case 3:
+				findPatronInZip();
+				break;
+			case 4:
+				findPatronNameLike();
+				break;
+			case 5:
+				findMenuReader();
+				break;
+         }
+	}
+   
+	private void findPatronOlderThan(){
+      System.out.println("to be written");
+   }
+   
+	private void findPatronNewerThan(){
+      
+   }
+   
+	private void findPatronInZip(){
+      
+   }
+   
+	private void findPatronNameLike(){
+      
+   } 
+	
+	private void findTransactionPrompt(){
+	
+		System.out.println("Search by bookID, patronID or the Date of Transaction (or some combination)");
+		System.out.println("If you do not know one of the fields just press enter to skip it.");
+		System.out.println("Book ID: ");
+		System.out.println("Patron ID: ");
+		System.out.println("Date of Transaction ()");
+		System.out.println("\n");
+	}
+
+	private void findTransactionReader(){
+		
+	}
+   
+   private void runTestScript(){
+      BookCollection bc;
+      // search for a book by a title like
+     // bc = new BookCollection("Title LIKE ", "apple");
+      
+      // given a year, print all book data for books before that year
+   //   bc = new BookCollection("Date >= ", "2000-01-01");
+      
+      /*
+      // given a date, print all patron data for patrons before that date
+      pc = new PatronCollection("Date > ", "1990-01-01");
+   
+      // given a zip, print all patron data in that area
+      pc = new PatronCollection("Zip = ", "14534");
+   
+      // given a bookid and dateOfTrans, show all transactions that relate
+      tc = new BookCollection("BookID = ", "1001') AND dateOfTrans >= ('2010-01-01");      //SELECT * FROM Transactions WHERE BookId =('1001') AND dateOfTrans >= ('2010-01-01');
+      */
+			
+   
+   
+   
+   }
+}
