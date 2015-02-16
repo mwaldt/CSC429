@@ -19,7 +19,7 @@ import userinterface.ViewFactory;
 
 /** The class containing the book for the ATM application */
 //==============================================================
-public class book extends EntityBase implements IView
+public class Book extends EntityBase implements IView
 {
 	private static final String myTableName = "Book";
 
@@ -31,7 +31,7 @@ public class book extends EntityBase implements IView
 
 	// constructor for this class
 	//----------------------------------------------------------
-	public book(String bookID)
+	public Book(String bookID)
 		throws InvalidPrimaryKeyException
 	{
 		super(myTableName);
@@ -81,7 +81,7 @@ public class book extends EntityBase implements IView
 	}
 
 	//----------------------------------------------------------
-	public book(Properties props)
+	public Book(Properties props)
 	{
 		super(myTableName);
 
@@ -134,7 +134,7 @@ public class book extends EntityBase implements IView
 
 	
 	//-----------------------------------------------------------------------------------
-	public static int compare(book a, book b)
+	public static int compare(Book a, Book b)
 	{
 		String aNum = (String)a.getState("bookID");
 		String bNum = (String)b.getState("bookID");
