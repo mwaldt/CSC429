@@ -6,13 +6,14 @@ import java.util.Properties;
 import model.BookCollection;
 import model.Book;
 //import model.PatronCollection;
-//import model.Patron;
+import model.Patron;
 //import model.TransactionCollection;
 import model.Transaction;
 
 public class BookStore{
 	
-	private Scanner scan = new Scanner(System.in);
+	private Scanner scan = new Scanner(System.in).useDelimiter("\n");
+	private Scanner scanInt = new Scanner(System.in);
 	
 	public BookStore(){
 		initialPrompt();
@@ -22,13 +23,7 @@ public class BookStore{
 	}
 	
 	public static void main(String args[]){
-		//System.out.println("type and press enter");
-		//String in = System.in;
-		//System.out.println(in);
-		
 		BookStore myBS = new BookStore();
-		
-		
 	}
 	
 	private void initialPrompt(){
@@ -54,7 +49,7 @@ public class BookStore{
 	}
 	
 	private void mainMenuReader(){
-		int i = scan.nextInt();
+		int i = scanInt.nextInt();
 		switch(i){
 			case 1:
 				createMenuPrompt();
@@ -81,7 +76,7 @@ public class BookStore{
 	}
 	
 	private void createMenuReader(){
-		int i = scan.nextInt();
+		int i = scanInt.nextInt();
 		switch(i){
 			case 1:
 				createBookPrompt();
@@ -106,19 +101,18 @@ public class BookStore{
       p.setProperty("title", s);
       System.out.println("Author of Book: ");
       s = scan.next();
-      p.setProperty("Author", s);
-      System.out.println("Year of publication(yyyy-mm-dd): ");
+      p.setProperty("author", s);
+      System.out.println("Year of publication(yyyy): ");
       s = scan.next();
       p.setProperty("pubYear", s);
       System.out.println("Status(g for good, u for used, d for damaged): ");
       s = scan.next();
       p.setProperty("status", s);
-	  p.setProperty("bookID", "1011");
-      Book b = new Book(p);
+	  Book b = new Book(p);
       b.update();
    }
    
-   private void createPatronPrompt(){  /*
+   private void createPatronPrompt(){  
       String s = "";
       Properties p = new Properties();
       System.out.println("Name of Patron: ");
@@ -142,28 +136,30 @@ public class BookStore{
       System.out.println("Date of Birth(yyyy-mm-dd): ");
       s = scan.next();
       p.setProperty("dateOfBirth", s);
+	  p.setProperty("status", "new");
       Patron pat = new Patron(p);
-      pat.update();       */
+      pat.update();       
    }
    
-   private void createTransactionPrompt(){
-      String s = "";
-      Properties p = new Properties();
-      System.out.println("Book ID: ");
-      s = scan.next();
-      p.setProperty("bookId", s);
-      System.out.println("Patron ID: ");
-      s = scan.next();
-      p.setProperty("patronID", s);
-      System.out.println("Transaction type(Sale, Rent, Return): ");
-      s = scan.next();
-      p.setProperty("transType", s);
-      System.out.println("Date of Transaction(yyyy-mm-dd): ");
-      s = scan.next();
-      p.setProperty("dateOfTrans", s);
-      Transaction t = new Transaction(p);
-      t.update();   }
-	
+	private void createTransactionPrompt(){
+		String s = "";
+		Properties p = new Properties();
+		System.out.println("Book ID: ");
+		s = scan.next();
+		p.setProperty("bookID", s);
+		System.out.println("Patron ID: ");
+		s = scan.next();
+		p.setProperty("patronID", s);
+		System.out.println("Transaction type(Sale, Rent, Return): ");
+		s = scan.next();
+		p.setProperty("transType", s);
+		System.out.println("Date of Transaction(yyyy-mm-dd): ");
+		s = scan.next();
+		p.setProperty("dateOfTrans", s);
+		Transaction t = new Transaction(p);
+		t.update();
+	}
+	  
 	private void findMenuPrompt(){
 		System.out.println("Type the number of the option and press enter to select it");
 		System.out.println("1. Find a Book");
@@ -175,7 +171,7 @@ public class BookStore{
 	}
 	
 	private void findMenuReader(){
-		int i = scan.nextInt();
+		int i = scanInt.nextInt();
 		switch(i){
 			case 1:
 				findBookPrompt();
@@ -204,7 +200,7 @@ public class BookStore{
 	}
 
 	private void findBookReader(){
-		int i = scan.nextInt();
+		int i = scanInt.nextInt();
 		switch(i){
 			case 1:
 				findBookOlderThan();
@@ -252,7 +248,7 @@ public class BookStore{
 	}
 
 	private void findPatronReader(){
-		int i = scan.nextInt();
+		int i = scanInt.nextInt();
 		switch(i){
 			case 1:
 				findPatronOlderThan();
@@ -305,19 +301,14 @@ public class BookStore{
    private void runTestScript(){
       
 	  System.out.println("Test Script initiate");
-	  BookCollection bc;
 	  Properties p = new Properties();
-	  p.setProperty("bookID", "1011");
+	  //p.setProperty("bookID", "1011");
 	  p.setProperty("title","manualinsert");
 	  p.setProperty("author","fakename");
-	  p.setProperty("pubYear","1976-04-13");
-	  p.setProperty("status","g");
-	  System.out.println("About to make book object");
+	  p.setProperty("pubYear","1976");
+	  p.setProperty("status","new");
 	  Book b = new Book(p);
-	  System.out.println("Book Made, pre update call");
-      b.update();
-	  
-	  
+	  b.update();
 	  System.out.println("End Test script");
 	  
 	  // search for a book by a title like
