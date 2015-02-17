@@ -55,14 +55,14 @@ public class Book extends EntityBase implements IView
 			else
 			{
 				// copy all the retrieved data into persistent state
-				Properties retrievedbookData = (Properties)allDataRetrieved.elementAt(0);
+				Properties retrievedBookData = (Properties)allDataRetrieved.elementAt(0);
 				persistentState = new Properties();
 
-				Enumeration allKeys = retrievedbookData.propertyNames();
+				Enumeration allKeys = retrievedBookData.propertyNames();
 				while (allKeys.hasMoreElements() == true)
 				{
 					String nextKey = (String)allKeys.nextElement();
-					String nextValue = retrievedbookData.getProperty(nextKey);
+					String nextValue = retrievedBookData.getProperty(nextKey);
 
 					if (nextValue != null)
 					{
@@ -84,7 +84,7 @@ public class Book extends EntityBase implements IView
 	public Book(Properties props)
 	{
 		super(myTableName);
-
+		
 		//setDependencies();
 		persistentState = new Properties();
 		Enumeration allKeys = props.propertyNames();
@@ -99,7 +99,7 @@ public class Book extends EntityBase implements IView
 			}
 		}
 	}
-/*
+
 	//-----------------------------------------------------------------------------------
 	private void setDependencies()
 	{
@@ -108,7 +108,7 @@ public class Book extends EntityBase implements IView
 		myRegistry.setDependencies(dependencies);
 	}
 
-	*/
+	
 	//----------------------------------------------------------
 	public Object getState(String key)
 	{
@@ -156,10 +156,9 @@ public class Book extends EntityBase implements IView
 			if (persistentState.getProperty("bookID") != null)
 			{
 				Properties whereClause = new Properties();
-				whereClause.setProperty("bookID",
-				persistentState.getProperty("bookID"));
+				whereClause.setProperty("bookID", persistentState.getProperty("bookID"));
 				updatePersistentState(mySchema, persistentState, whereClause);
-				updateStatusMessage = "Book data for book number : " + persistentState.getProperty("bookID") + " updated successfully in database!";
+				updateStatusMessage = "Book data for bookID : " + persistentState.getProperty("bookID") + " updated successfully in database!";
 			}
 			else
 			{
@@ -168,6 +167,7 @@ public class Book extends EntityBase implements IView
 				persistentState.setProperty("bookID", "" + bookID.intValue());
 				updateStatusMessage = "Book data for new book : " +  persistentState.getProperty("bookID")
 					+ "installed successfully in database!";
+				System.out.println(updateStatusMessage);
 			}
 		}
 		catch (SQLException ex)
