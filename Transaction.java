@@ -84,7 +84,7 @@ public class Transaction extends EntityBase implements IView
 	public Transaction(Properties props)
 	{
 		super(myTableName);
-
+		
 		//setDependencies();
 		persistentState = new Properties();
 		Enumeration allKeys = props.propertyNames();
@@ -99,7 +99,7 @@ public class Transaction extends EntityBase implements IView
 			}
 		}
 	}
-/*
+
 	//-----------------------------------------------------------------------------------
 	private void setDependencies()
 	{
@@ -108,7 +108,6 @@ public class Transaction extends EntityBase implements IView
 		myRegistry.setDependencies(dependencies);
 	}
 
-	*/
 	//----------------------------------------------------------
 	public Object getState(String key)
 	{
@@ -156,10 +155,9 @@ public class Transaction extends EntityBase implements IView
 			if (persistentState.getProperty("transID") != null)
 			{
 				Properties whereClause = new Properties();
-				whereClause.setProperty("transID",
-				persistentState.getProperty("transID"));
+				whereClause.setProperty("transID", persistentState.getProperty("transID"));
 				updatePersistentState(mySchema, persistentState, whereClause);
-				updateStatusMessage = "Transaction data for transaction number : " + persistentState.getProperty("transID") + " updated successfully in database!";
+				updateStatusMessage = "Transaction data for transID : " + persistentState.getProperty("transID") + " updated successfully in database!";
 			}
 			else
 			{
@@ -168,6 +166,7 @@ public class Transaction extends EntityBase implements IView
 				persistentState.setProperty("transID", "" + transID.intValue());
 				updateStatusMessage = "Transaction data for transaction book : " +  persistentState.getProperty("transID")
 					+ "installed successfully in database!";
+				System.out.println(updateStatusMessage);
 			}
 		}
 		catch (SQLException ex)
