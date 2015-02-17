@@ -47,7 +47,7 @@ public class BookStore{
 		System.out.println("Type the number of the option and press enter to select it");
 		System.out.println("1. Create a new entry");
 		System.out.println("2. Pull up an existing entry");
-		System.out.println("5. Run Test Script");
+		System.out.println("3. Run Test Script");
 		System.out.println("0. Exit Program");
 		System.out.println("\n");
 		mainMenuReader();
@@ -62,7 +62,7 @@ public class BookStore{
 			case 2:
 				findMenuPrompt();
 				break;
-			case 5:
+			case 3:
 				runTestScript();
 				break;
 			case 0:
@@ -113,6 +113,7 @@ public class BookStore{
       System.out.println("Status(g for good, u for used, d for damaged): ");
       s = scan.next();
       p.setProperty("status", s);
+	  p.setProperty("bookID", "1011");
       Book b = new Book(p);
       b.update();
    }
@@ -302,8 +303,24 @@ public class BookStore{
 	}
    
    private void runTestScript(){
-      BookCollection bc;
-      // search for a book by a title like
+      
+	  System.out.println("Test Script initiate");
+	  BookCollection bc;
+	  Properties p = new Properties();
+	  p.setProperty("bookID", "1011");
+	  p.setProperty("title","manualinsert");
+	  p.setProperty("author","fakename");
+	  p.setProperty("pubYear","1976-04-13");
+	  p.setProperty("status","g");
+	  System.out.println("About to make book object");
+	  Book b = new Book(p);
+	  System.out.println("Book Made, pre update call");
+      b.update();
+	  
+	  
+	  System.out.println("End Test script");
+	  
+	  // search for a book by a title like
      // bc = new BookCollection("Title LIKE ", "apple");
       
       // given a year, print all book data for books before that year
