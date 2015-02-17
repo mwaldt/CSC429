@@ -1,0 +1,23 @@
+		// 2nd query ------------------------------------
+		Vector query2Data = getSelectQueryResult(query2);
+		if (query2Data != null)
+		{
+			transactions = new Vector();
+
+			for (int cnt = 0; cnt < query2Data.size(); cnt++)
+			{
+				Properties nextTransactionData = (Properties)query2Data.elementAt(cnt);
+
+				Transaction transaction = new Transaction(nextTransactionData);
+
+				if (transaction != null)
+				{
+					addTransaction(transaction);
+				}
+			}
+
+		}
+		else
+		{
+			throw new InvalidPrimaryKeyException("No transactions for second query: "+query2);
+		}
